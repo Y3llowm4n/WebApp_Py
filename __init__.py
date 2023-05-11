@@ -18,8 +18,6 @@ class users(db.Model):
     def __init__(self, name, email):
         self.name = name
         self.email = email
-        
-        
 
 @app.route("/")
 def home():
@@ -29,6 +27,7 @@ def home():
 def view():
     return render_template("view.html", values=users.query.all())
 
+#gebruikersnaam wordt opgehaald en als mailadress bestaat met dezelfde username wordt die uit de tabel gehaald.
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
@@ -52,6 +51,7 @@ def login():
             return redirect(url_for("user"))
         return render_template("login.html")
 
+#sent email to database
 @app.route("/user", methods=["POST", "GET"])
 def user():
     email = None
@@ -74,6 +74,7 @@ def user():
         flash("You are not logged in!", "info")
         return redirect(url_for("login"))
 
+# Print message when succesfully logged out
 @app.route("/logout")
 def logout():
     flash("Succesfully logged out!")
